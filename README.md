@@ -5,8 +5,8 @@ A Javascript height equalizer. Every OneHeight call autocreates a new instance o
 
 ## Arguments:
 
-@param querySelector to define parent wrapper | {String}
-@param (Optional) querySelector to find childs in parent wrapper | {String}
+* @param querySelector to define parent wrapper | {String}
+* @param (Optional) querySelector to find childs in parent wrapper | {String}
 
 ## Methods:
 
