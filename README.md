@@ -1,7 +1,7 @@
 OneHeight.js
 ============
 
-A Javascript height equalizer
+A Javascript height equalizer. Every OneHeight call autocreates a new instance of OneHeight. So it`s possible to handle diferrent
 
 ## Arguments:
 

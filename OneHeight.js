@@ -85,31 +85,38 @@
         }
 
         childrenQuery = childrenQuery || false;
-
         this.wrapper = document.querySelector(parentQuery);
-        this.height = this.wrapper.offsetHeight;
+        this.childrenQuery = childrenQuery;
+        this.init()
 
-        if(childrenQuery) {
-
-            this.items = this.wrapper.querySelectorAll(childrenQuery);
-            this.height = checkItemHeight(this.items);
-
-        } else {
-
-            this.items = this.wrapper.children;
-
-        }
-
-        this.setHeight();
 
     }
 
     /**
      * public methods
-     * @type {{setHeight: setHeight, removeHeight: removeHeight}}
+     * @type {{init: init, setHeight: setHeight, removeHeight: removeHeight}}
      */
 
     OneHeight.prototype = {
+
+        init: function() {
+
+            this.height = this.wrapper.offsetHeight;
+
+            if(this.childrenQuery) {
+
+                this.items = this.wrapper.querySelectorAll(this.childrenQuery);
+                this.height = checkItemHeight(this.items);
+
+            } else {
+
+                this.items = this.wrapper.children;
+
+            }
+
+            this.setHeight();
+
+        },
 
         /**
          * set euqal height to items
