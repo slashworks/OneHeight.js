@@ -1,7 +1,7 @@
 OneHeight.js
 ============
 
-A Javascript height equalizer. Every OneHeight call autocreates a new instance of OneHeight. So it`s possible to handle diferrent instances. OneHeight also checks if there is a box-sizing border-box item or not.
+A Javascript height equalizer. Every OneHeight call autocreates a new instance of OneHeight. So it`s possible to handle different instances. OneHeight also checks if there is a box-sizing border-box item or not.
 
 ## Arguments:
 
