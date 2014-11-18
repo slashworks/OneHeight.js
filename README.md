@@ -20,7 +20,7 @@ Removes the height of an instance.
 
 ### Height by wrapper
 
-Keep in mind that your wrapper must completly wraps the child elements. If one of the childs are uses float: left the wrapper becomes hight: 0 because he has to float, too. To fix this isse give the wrapper an overflow: hidden or simular overflow propertys.
+Keep in mind that your wrapper must completly wrap the child elements. If one of the childs are using float: left the wrapper becomes height: 0 because he has to float, too. To fix this problem, add an overflow: hidden to the wrapper.
 
 ```javascript
 	window.addEventListener('DOMContentLoaded', function() {
