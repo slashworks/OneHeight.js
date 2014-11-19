@@ -44,7 +44,7 @@
 
         Array.prototype.forEach.call(collection, function(el) {
 
-            callback.call(el);
+            callback(el);
 
         })
 
@@ -60,9 +60,9 @@
 
         var Buffer = 0;
 
-        each(items, function() {
+        each(items, function(el) {
 
-            Buffer = (this.offsetHeight > Buffer) ? this.offsetHeight : Buffer;
+            Buffer = (el.offsetHeight > Buffer) ? el.offsetHeight : Buffer;
 
         })
 
@@ -78,17 +78,10 @@
 
     function OneHeight(parentQuery, childrenQuery) {
 
-        if(!(this instanceof OneHeight)) {
-
-            return new OneHeight(parentQuery, childrenQuery);
-
-        }
-
         childrenQuery = childrenQuery || false;
-        this.wrapper = document.querySelector(parentQuery);
+        this.wrapper = parentQuery;
         this.childrenQuery = childrenQuery;
-        this.init()
-
+        this.init();
 
     }
 
@@ -112,6 +105,7 @@
 
                 this.items = this.wrapper.children;
 
+
             }
 
             this.setHeight();
@@ -126,9 +120,8 @@
 
             var height = this.height;
 
-            each(this.items, function() {
+            each(this.items, function(el) {
 
-                var el = this;
                 var getElStyle = getStyle(el);
 
                 var result = (getElStyle.boxSizing !== 'border-box') ? height - (parseInt(getElStyle.paddingTop) + parseInt(getElStyle.paddingBottom)) : height;
@@ -139,23 +132,87 @@
 
         },
 
-        /**
-         * remove equal height of items
-         */
-
         removeHeight: function() {
 
-            each(this.items, function() {
+            each(this.items, function(el) {
 
-                this.style.height = '';
+                el.style.height = '';
 
             })
 
         }
 
+
     }
 
-    global.OneHeight = OneHeight;
+    var OneheightManager = window.OneHeight = (function() {
+
+        var itemMap = {};
+
+        return {
+
+            add: function(name, parentQuery, childrenQuery) {
+
+                childrenQuery = childrenQuery || false;
+
+                if(typeof parentQuery === "string") {
+
+                    itemMap[name] = [];
+
+                    each(document.querySelectorAll(parentQuery), function(el) {
+
+                        var instance = new OneHeight(el, childrenQuery);
+                        itemMap[name].push(instance);
+
+
+                    })
+
+                }
+
+                return this;
+
+            },
+
+            removeHeight: function(name) {
+
+
+                each(itemMap[name], function(item) {
+
+                    item.removeHeight();
+
+                })
+
+                return this;
+
+            },
+
+            setHeight: function(name) {
+
+                each(itemMap[name], function(item) {
+
+                    item.setHeight();
+
+                })
+
+                return this;
+
+            },
+
+            reload: function(name) {
+
+                each(itemMap[name], function(item) {
+
+                    item.init();
+
+                })
+
+                return this;
+
+            }
+
+        }
+
+    })()
 
 
 })(this);
